@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5fdfb;
+      margin: 0;
+      padding: 0;
+    }
+    .dashboard-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    h2 {
+      margin-bottom: 30px;
+      color: #2e9633;
+    }
+    #menu {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    #menu a {
+      text-decoration: none;
+      background-color: #3b8d3f;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-size: 16px;
+      text-align: center;
+      transition: background-color 0.3s;
+    }
+    #menu a:hover {
+      background-color: #46f54f;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <h2>Welcome</h2>
+    <nav id="menu"></nav>
+  </div>
+
+  <script>
+    const role = localStorage.getItem("userRole");
+
+    if (role === "patient") {
+      document.getElementById("menu").innerHTML = `
+        <a href="book-appointment.html">Book Appointment</a>
+        <a href="prescription-history.html">Prescription History</a>
+        <a href="appointment-history.html">Appointment History</a>
+      `;
+    } else if (role === "doctor") {
+      document.getElementById("menu").innerHTML = `
+        <a href="create-prescription.html">Create Prescription</a>
+        <a href="appointment-history.html">Appointment History</a>
+        <a href="prescription-history.html">Prescription History</a>
+      `;
+    }
+  </script>
+</body>
+</html>

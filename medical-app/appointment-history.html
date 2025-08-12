@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Appointment History</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+  <h2>Appointment History</h2>
+  <div id="appointmentTable"></div>
+</div>
+
+<script>
+const appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+const role = localStorage.getItem("userRole");
+const email = localStorage.getItem("userEmail");
+
+let filtered = [];
+if (role === "patient") {
+  filtered = appointments.filter(a => a.patientEmail === email);
+} else {
+  filtered = appointments.filter(a => a.doctor === email || a.doctorEmail === email);
+}
+
+if (filtered.length === 0) {
+  document.getElementById("appointmentTable").innerHTML = `<p class="empty-msg">No appointments found.</p>`;
+} else {
+  let html = `<table><tr><th>Doctor</th><th>Patient</th><th>Date</th><th>Time</th><th>Reason</th></tr>`;
+  filtered.forEach(a => {
+    html += `<tr>
+      <td>${a.doctor}</td>
+      <td>${a.patientEmail}</td>
+      <td>${a.date}</td>
+      <td>${a.time}</td>
+      <td>${a.reason}</td>
+    </tr>`;
+  });
+  html += `</table>`;
+  document.getElementById("appointmentTable").innerHTML = html;
+}
+</script>
+</body>
+</html>

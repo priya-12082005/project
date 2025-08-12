@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Create Prescription</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+  <h2>Create Prescription</h2>
+  <label>Patient Email</label>
+  <input type="email" id="patient">
+
+  <label>Symptoms</label>
+  <textarea id="symptoms"></textarea>
+
+  <label>Diagnosis</label>
+  <textarea id="diagnosis"></textarea>
+
+  <label>Medicines</label>
+  <textarea id="medicines"></textarea>
+
+  <button onclick="savePrescription()">Save Prescription</button>
+</div>
+
+<script>
+function savePrescription() {
+  const prescriptions = JSON.parse(localStorage.getItem("prescriptions")) || [];
+  prescriptions.push({
+    doctorEmail: localStorage.getItem("userEmail"),
+    patientEmail: document.getElementById("patient").value,
+    symptoms: document.getElementById("symptoms").value,
+    diagnosis: document.getElementById("diagnosis").value,
+    medicines: document.getElementById("medicines").value
+  });
+  localStorage.setItem("prescriptions", JSON.stringify(prescriptions));
+  alert("Prescription saved!");
+}
+</script>
+</body>
+</html>

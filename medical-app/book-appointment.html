@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Book Appointment</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+  <h2>Book Appointment</h2>
+  <label>Doctor Name</label>
+  <input type="text" id="doctor">
+
+  <label>Date</label>
+  <input type="date" id="date">
+
+  <label>Time</label>
+  <input type="time" id="time">
+
+  <label>Reason</label>
+  <textarea id="reason"></textarea>
+
+  <button onclick="saveAppointment()">Book</button>
+</div>
+
+<script>
+function saveAppointment() {
+  const appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+  appointments.push({
+    doctor: document.getElementById("doctor").value,
+    patientEmail: localStorage.getItem("userEmail"),
+    date: document.getElementById("date").value,
+    time: document.getElementById("time").value,
+    reason: document.getElementById("reason").value
+  });
+  localStorage.setItem("appointments", JSON.stringify(appointments));
+  alert("Appointment booked!");
+}
+</script>
+</body>
+</html>
